@@ -1,60 +1,88 @@
-# **Rently Pro** A Scalable Real Estate Application
+# Real Estate App – Frontend (Client)
 
-Build a Scalable Real Estate Application with **Next.js**, **Node.js**, and **AWS**. Learn to create an enterprise-grade Rental Apartment Application using:
+Welcome to the frontend client of the Real Estate App! This project serves as the user interface for browsing, searching, and managing real estate listings.
 
-**Frontend:** Next.js, Redux Toolkit, Tailwind CSS, Shadcn, TypeScript, Framer Motion, React Hook Form, Zod, Lucide React, Date-fns, Mapbox GL, Lodash, FilePond, React FilePond, FilePond Plugin Image EXIF Orientation, FilePond Plugin Image Preview, @hookform/resolvers, Dotenv.
+## Table of Contents
 
-**Backend:** Node.js, Express.js, EC2, API Gateway, RDS, S3, and Amplify.
+- [Real Estate App – Frontend (Client)](#real-estate-app--frontend-client)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Getting Started](#getting-started)
+  - [Project Structure](#project-structure)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-**Authentication:** AWS Cognito.
+## Overview
 
-## Links
+This frontend is built to provide a seamless and responsive experience for users looking to buy, sell, or rent properties. It interacts with the backend API to display real-time property data and manage user accounts.
 
-### AWS
+## Features
 
-⭐ [AWS EC2 Instructions](https://github.com/ed-roh/real-estate...)
+- User authentication and authorization
+- Property search and filtering
+- Detailed property listings
+- Responsive design for mobile and desktop
+- User dashboard for managing listings and favorites
 
-### Frontend
+## Tech Stack
 
-⭐ [Mapbox](https://www.mapbox.com/)
-⭐ [Mapbox React GL](https://docs.mapbox.com/help/tutorial...)
-⭐ [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/)
-⭐ [Shadcn](https://ui.shadcn.com/docs) 💎
-⭐ [Shadcn Sonner](https://ui.shadcn.com/docs/components...)
-⭐ [Shadcn React Hook Form](https://ui.shadcn.com/docs/components...)
-⭐ [React Hook Form](https://react-hook-form.com/get-start...)
-⭐ [@hookform/resolvers](https://react-hook-form.com/docs/useform/#resolver)
-⭐ [Zod](https://zod.dev/?id=table-of-contents) ✅
-⭐ [Redux Toolkit](https://redux-toolkit.js.org/) 🚀
-⭐ [Redux Toolkit Query](https://redux-toolkit.js.org/rtk-quer...)
-⭐ [Lucide React](https://lucide.dev/docs/lucide-react/)
-⭐ [Framer Motion](https://www.framer.com/motion/)
-⭐ [Date-fns](https://date-fns.org/)
-⭐ [Lodash](https://lodash.com/)
-⭐ [FilePond](https://pqina.nl/filepond/)
-⭐ [React FilePond](https://pqina.nl/filepond/docs/patterns/frameworks/react/)
-⭐ [FilePond Plugin Image EXIF Orientation](https://pqina.nl/filepond/docs/api/plugins/image-exif-orientation/)
-⭐ [FilePond Plugin Image Preview](https://pqina.nl/filepond/docs/api/plugins/image-preview/)
-⭐ [Dotenv](https://www.npmjs.com/package/dotenv)
+- **Framework:** React
+- **Styling:** CSS Modules / ShadCN Components
+- **State Management:** Redux
+- **HTTP Client:** Axios / Fetch API
+- **Routing:** React Router
 
-### ShadCN Components
+## Getting Started
 
- **avatar, badge, button, card, checkbox, command, dialog, dropdown-menu, form, input, label, navigation-menu, radio-group, select, separator, sheet, sidebar, skeleton, slider, sonner, switch, table, tabs, textarea, tooltip**
+1. **Clone the repository:**
 
-### Backend
+    ```bash
+    git clone https://github.com/dipaloke/real-estate-prod.git
+    cd real-estate-prod/client
+    ```
 
-⭐ [Postgres Download](https://www.postgresql.org/download/)
-⭐ [PostGIS Install](https://postgis.net/workshops/postgis...)
-⭐ [PgAdmin Download](https://www.pgadmin.org/download/)
-⭐ [Prisma Docs](https://www.prisma.io/docs/getting-st...)
-⭐ [Postman Download](https://www.postman.com/downloads/)
-⭐ [AWS](https://aws.amazon.com/)
-⭐ [AWS CLI](https://docs.aws.amazon.com/cli/lates...)
-⭐ [AWS Billing](https://us-east-1.console.aws.amazon....)
-⭐ [AWS Cognito](https://aws.amazon.com/cognito/)
+2. **Install dependencies:**
 
- **AWS Cognito Related Links:**
-&nbsp;&nbsp;&nbsp;&nbsp;[Amplify UI Docs](https://ui.docs.amplify.aws/react/con...)
-&nbsp;&nbsp;&nbsp;&nbsp;[Amplify JS Docs](https://docs.amplify.aws/javascript/t...)
-&nbsp;&nbsp;&nbsp;&nbsp;[Amplify React Docs](https://docs.amplify.aws/react/build-...)
-⭐ [Nominatim](https://nominatim.org/release-docs/la...)
+    ```bash
+    npm install
+    ```
+
+3. **Start the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+4. **Open in browser:**
+    Visit [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
+```MD040
+client/
+├── public/
+├── src/
+|   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── state/
+│   ├── lib/
+|   └── types/
+├── components.json
+├── package.json
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please open  [CONTRIBUTING](../CONTRIBUTING.md) for guidelines. Raise issues or submit pull requests for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the [MIT License](../LICENSE).
+
+---
+
+*For backend details, see the [server README](../server/README.md).*
