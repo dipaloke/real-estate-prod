@@ -1,5 +1,7 @@
-@import "tailwindcss/preflight";
-@tailwind utilities; 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @import "tailwindcss"; */
 
 /* Set box-sizing to border-box for all elements */
 *,
@@ -93,9 +95,9 @@ body,
 /* Mapbox popup content styling */
 .mapboxgl-popup-content {
   @apply !bg-primary-700; /* Override background color */
-  @apply !rounded-lg;     /* Override border radius */
-  @apply !py-2;           /* Override vertical padding */
-  @apply !px-3;           /* Override horizontal padding */
+  @apply !rounded-lg; /* Override border radius */
+  @apply !py-2; /* Override vertical padding */
+  @apply !px-3; /* Override horizontal padding */
 }
 
 /* Mapbox popup tip color for different anchors */
