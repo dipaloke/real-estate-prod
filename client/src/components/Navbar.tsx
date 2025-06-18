@@ -2,6 +2,7 @@ import { NAVBAR_HEIGHT } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
@@ -13,7 +14,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 md:gap-6">
           <Link
             href="/"
-            className="cursor-pointer hover:!text-primary-300"
+            className="cursor-pointer hover:text-primary-300!"
             scroll={false}
           >
             <div className="flex items-center gap-3">
@@ -26,11 +27,32 @@ const Navbar = () => {
               />
               <div className="text-xl font-bold">
                 RENTLY
-                <span className="text-secondary-500 font-light hover:!text-primary-300">
+                <span className="text-secondary-500 font-light hover:text-primary-300!">
                   PRO
                 </span>
               </div>
             </div>
+          </Link>
+        </div>
+        <p className="text-primary-200 hidden md:block">
+          Discover your perfect rental property with Rently Pro.
+        </p>
+        <div className="flex items-center gap-5">
+          <Link href="/signin">
+            <Button
+              variant="outline"
+              className="text-white border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-lg"
+            >
+              Sign in
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button
+              variant="secondary"
+              className="text-white bg-secondary-600 hover:bg-white hover:text-primary-700 rounded-lg"
+            >
+              Sign up
+            </Button>
           </Link>
         </div>
       </div>
