@@ -9,6 +9,7 @@ Welcome to the frontend client of the Real Estate App! This project serves as th
   - [Overview](#overview)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
+  - [Icon packages](#icon-packages)
   - [Getting Started](#getting-started)
   - [Project Structure](#project-structure)
   - [Contributing](#contributing)
@@ -33,6 +34,10 @@ This frontend is built to provide a seamless and responsive experience for users
 - **State Management:** Redux
 - **HTTP Client:** Axios / Fetch API
 - **Routing:** React Router
+
+## Icon packages
+
+- @fortawesome/fontawesome-svg-core, @fortawesome/free-brands-svg-icons, @fortawesome/react-fontawesome
 
 ## Getting Started
 
