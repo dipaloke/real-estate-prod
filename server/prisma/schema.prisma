@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Generates the Prisma Client in the specified output directory
+generator client {
+  provider        = "prisma-client-js"
+ 
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+// Defines the database connection and enables PostGIS extension for geospatial data
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+// Enum for property highlights/features
+enum Highlight {
+  HighSpeedInternetAccess
+  WasherDryer
+  AirConditioning
+  Heating
+  SmokeFree
+  CableReady
+  SatelliteTV
+  DoubleVanities
+  TubShower
+  Intercom
+  SprinklerSystem
+  RecentlyRenovated
+  CloseToTransit
+  GreatView
+  QuietNeighborhood
+}
+
+// Enum for property amenities
+enum Amenity {
+  WasherDryer
+  AirConditioning
+  Dishwasher
+  HighSpeedInternet
+  HardwoodFloors
+  WalkInClosets
+  Microwave
+  Refrigerator
+  Pool
+  Gym
+  Parking
+  PetsAllowed
+  WiFi
+}
+
+// Enum for different types of properties
+enum PropertyType {
+  Rooms
+  Tinyhouse
+  Apartment
+  Villa
+  Townhouse
+  Cottage
+}
+
+// Enum for application status
+enum ApplicationStatus {
+  Pending
+  Denied
+  Approved
+}
+
+// Enum for payment status
+enum PaymentStatus {
+  Pending
+  Paid
+  PartiallyPaid
+  Overdue
+}
+
+// Main model representing a property listing
+model Property {
+  id                Int          @id @default(autoincrement()) // Primary key
+  name              String       // Property name/title
+  description       String       // Description of the property
+  pricePerMonth     Float        // Monthly rent
+  securityDeposit   Float        // Security deposit amount
+  applicationFee    Float        // Application fee
+  photoUrls         String[]     // Array of photo URLs
+  amenities         Amenity[]    // List of amenities (enum)
+  highlights        Highlight[]  // List of highlights (enum)
+  isPetsAllowed     Boolean      @default(false) // Pets allowed or not
+  isParkingIncluded Boolean      @default(false) // Parking included or not
+  beds              Int          // Number of bedrooms
+  baths             Float        // Number of bathrooms
+  squareFeet        Int          // Area in square feet
+  propertyType      PropertyType // Type of property (enum)
+  postedDate        DateTime     @default(now()) // Date posted
+  averageRating     Float?       @default(0)     // Average rating (nullable)
+  numberOfReviews   Int?         @default(0)     // Number of reviews (nullable)
+  locationId        Int          // Foreign key to Location
+  managerCognitoId  String       // Foreign key to Manager (Cognito ID)
+
+  // Relations
+  location     Location      @relation(fields: [locationId], references: [id])
+  manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
+  leases       Lease[]       // Leases for this property
+  applications Application[] // Applications for this property
+  favoritedBy  Tenant[]      @relation("TenantFavorites")   // Tenants who favorited this property
+  tenants      Tenant[]      @relation("TenantProperties")  // Tenants currently renting this property
+}
+
+// Model for property managers/owners
+model Manager {
+  id          Int    @id @default(autoincrement()) // Primary key
+  cognitoId   String @unique                      // Unique Cognito ID
+  name        String // Manager's name
+  email       String // Manager's email
+  phoneNumber String // Manager's phone number
+
+  managedProperties Property[] // Properties managed by this manager
+}
+
+// Model for tenants/renters
+model Tenant {
+  id          Int    @id @default(autoincrement()) // Primary key
+  cognitoId   String @unique                      // Unique Cognito ID
+  name        String // Tenant's name
+  email       String // Tenant's email
+  phoneNumber String // Tenant's phone number
+
+  properties   Property[]    @relation("TenantProperties") // Properties currently rented by tenant
+  favorites    Property[]    @relation("TenantFavorites")  // Properties favorited by tenant
+  applications Application[] // Applications submitted by tenant
+  leases       Lease[]       // Leases held by tenant
+}
+
+// Model for property location details
+model Location {
+  id          Int                                   @id @default(autoincrement()) // Primary key
+  address     String // Street address
+  city        String // City
+  state       String // State
+  country     String // Country
+  postalCode  String // Postal/ZIP code
+  coordinates Unsupported("geography(Point, 4326)") // Geospatial coordinates (PostGIS)
+
+  properties Property[] // Properties at this location
+}
+
+// Model for rental applications
+model Application {
+  id              Int               @id @default(autoincrement()) // Primary key
+  applicationDate DateTime          // Date of application
+  status          ApplicationStatus // Status of application (enum)
+  propertyId      Int               // Foreign key to Property
+  tenantCognitoId String            // Foreign key to Tenant (Cognito ID)
+  name            String            // Applicant's name
+  email           String            // Applicant's email
+  phoneNumber     String            // Applicant's phone number
+  message         String?           // Optional message from applicant
+  leaseId         Int?              @unique // Optional, links to Lease if approved
+
+  // Relations
+  property Property @relation(fields: [propertyId], references: [id])
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+  lease    Lease?   @relation(fields: [leaseId], references: [id])
+}
+
+// Model for lease agreements
+model Lease {
+  id              Int      @id @default(autoincrement()) // Primary key
+  startDate       DateTime // Lease start date
+  endDate         DateTime // Lease end date
+  rent            Float    // Monthly rent
+  deposit         Float    // Security deposit
+  propertyId      Int      // Foreign key to Property
+  tenantCognitoId String   // Foreign key to Tenant (Cognito ID)
+
+  // Relations
+  property    Property     @relation(fields: [propertyId], references: [id])
+  tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
+  application Application? // Optional, links back to Application
+  payments    Payment[]    // Payments for this lease
+}
+
+// Model for rent payments
+model Payment {
+  id            Int           @id @default(autoincrement()) // Primary key
+  amountDue     Float         // Amount due for payment
+  amountPaid    Float         // Amount actually paid
+  dueDate       DateTime      // Payment due date
+  paymentDate   DateTime      // Date payment was made
+  paymentStatus PaymentStatus // Status of payment (enum)
+  leaseId       Int           // Foreign key to Lease
+
+  lease Lease @relation(fields: [leaseId], references: [id])
+}
