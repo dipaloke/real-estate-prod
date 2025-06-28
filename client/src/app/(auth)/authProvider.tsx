@@ -26,6 +26,15 @@ Amplify.configure({
 });
 const components = {
   Header() {
+    const { route } = useAuthenticator((context) => [context.route]);
+
+    let subtext = "Welcome!";
+    if (route === "signIn") {
+      subtext = "Welcome! Please sign in to continue.";
+    } else if (route === "signUp") {
+      subtext = "Welcome! Create an account to get started.";
+    }
+
     return (
       <View className="mt-4 mb-7">
         <Heading level={3} className="!text-2xl !font-bold">
@@ -35,8 +44,8 @@ const components = {
           </span>
         </Heading>
         <p className="text-muted-foreground mt-2">
-          <span className="font-bold">Welcome!</span> Please sign in to
-          continue.
+          <span className="font-bold">Welcome!</span>
+          {subtext.replace("Welcome! ", " ")}
         </p>
       </View>
     );
