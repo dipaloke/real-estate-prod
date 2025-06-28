@@ -7,7 +7,6 @@
 // Generates the Prisma Client in the specified output directory
 generator client {
   provider        = "prisma-client-js"
- 
   previewFeatures = ["postgresqlExtensions"]
 }
 

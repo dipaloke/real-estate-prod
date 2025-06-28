@@ -12,6 +12,7 @@ Welcome to the frontend client of the Real Estate App! This project serves as th
   - [Icon packages](#icon-packages)
   - [Getting Started](#getting-started)
   - [Project Structure](#project-structure)
+  - [Cognito Setup](#cognito-setup)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -79,6 +80,12 @@ client/
 ├── package.json
 └── README.md
 ```
+
+## Cognito Setup
+
+- Setup Amazon user pool
+- Added signUp custom attribute(role) into cognito
+- Added cognito user pool id and application client id to .env
 
 ## Contributing
 
