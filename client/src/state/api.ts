@@ -79,7 +79,7 @@ export const api = createApi({
               cognitoInfo: { ...user }, // Cognito user info
               userInfo: userDetailsResponse.data as Tenant | Manager, // Backend user info
               userRole, // User's role
-            },
+            }, 
           };
         } catch (error: any) {
           return {
