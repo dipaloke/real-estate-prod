@@ -65,13 +65,18 @@ export const api = createApi({
           let userDetailsResponse = await fetchWithBQ(endPoint);
 
           // TODO: If user doesn't exist in the backend, create a new user here
-          // if(userDetailsResponse.error && userDetailsResponse.error.status === 404) {
-          //   const userDetailsResponse = await createNewUserInDatabase(
-          //     user,
-          //     userRole,
-          //     fetchWithBQ
-          //   )
-          // }
+
+          if (
+            userDetailsResponse.error &&
+            userDetailsResponse.error.status === 404
+          ) {
+            userDetailsResponse = await createNewUserInDatabase(
+              user,
+              idToken,
+              userRole,
+              fetchWithBQ,
+            );
+          }
 
           // 5. Return both Cognito and backend user info, plus the role
           return {
@@ -79,7 +84,7 @@ export const api = createApi({
               cognitoInfo: { ...user }, // Cognito user info
               userInfo: userDetailsResponse.data as Tenant | Manager, // Backend user info
               userRole, // User's role
-            }, 
+            },
           };
         } catch (error: any) {
           return {
@@ -91,5 +96,6 @@ export const api = createApi({
   }),
 });
 
-// Export hooks for usage in functional components
-export const {} = api;
+export const {
+  useGetAuthUserQuery,
+} = api;
